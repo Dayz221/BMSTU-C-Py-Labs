@@ -1,10 +1,14 @@
 def deleteZeros(num: str):
+    sign = ""
+    if num[0] == '-': 
+        num = num[1:]
+        sign = "-"
     parts = num.split(".")
     if len(parts) == 1:
-        num = parts[0].lstrip("0")
+        num = sign+parts[0].lstrip("0")
     elif len(parts) == 2:
         parts[1] = parts[1].rstrip("0")
-        num = f"{parts[0].lstrip('0')}{f'.{parts[1]}' if len(parts[1]) else ''}"
+        num = f"{sign}{parts[0].lstrip('0')}{f'.{parts[1]}' if len(parts[1]) else ''}"
     else:
         raise ValueError("Incorrect number!")
 
@@ -13,10 +17,14 @@ def deleteZeros(num: str):
 
 def to4(num: str, precision: int = 5) -> str:
     answ = ""
+    sign = ""
     num = float(num)
-    int_part, float_part = int(num), num - int(num)
 
-    sign = "-" if num !=0 and num/abs(num) == -1 else ""
+    if num != 0 and num/abs(num) == -1:
+        sign = "-"
+        num *= -1
+    
+    int_part, float_part = int(num), num - int(num)
 
     if int_part == 0: answ += "0"
     while int_part != 0:
@@ -41,7 +49,10 @@ def from4(num: str, precision: int = 4) -> str:
     answ = 0
     int_part, float_part = "", ""
 
-    sign = -1 if num[0] == "-" else 1
+    sign = 1
+    if num[0] == "-":
+        sign = -1
+        num = num[1:]
 
     parts = num.split(".")
     if len(parts) == 1:

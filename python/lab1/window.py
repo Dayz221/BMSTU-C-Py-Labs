@@ -66,7 +66,7 @@ class CalculatorWindow(AppUI):
 
     def enterSymb(self, symb: str):
         prevVal = self.value.get()
-        if prevVal == "0": prevVal = ""
+        if prevVal == "0" and symb != ".": prevVal = ""
         try:
             self.value.set(prevVal + symb)
             self.updateLabels()
@@ -80,7 +80,13 @@ class CalculatorWindow(AppUI):
             self.buttons[int(key)].invoke()
 
     def negate(self):
-        pass
+        val = self.value.get()
+        if val[0] == '-':
+            val = val[1:]
+        elif val[0] != '0':
+            val = '-' + val
+        self.value.set(val)
+        self.updateLabels()
 
     def clear(self):
         self.value.set("0")
