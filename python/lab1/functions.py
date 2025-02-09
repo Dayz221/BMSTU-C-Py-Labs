@@ -1,3 +1,6 @@
+# Файл functions.py - файл, содержащий функции перевода и вспомогательные функции
+
+
 def deleteZeros(num: str):
     sign = ""
     if num[0] == '-': 
@@ -7,8 +10,9 @@ def deleteZeros(num: str):
     if len(parts) == 1:
         num = sign+parts[0].lstrip("0")
     elif len(parts) == 2:
+        parts[0] = parts[0].lstrip("0")
         parts[1] = parts[1].rstrip("0")
-        num = f"{sign}{parts[0].lstrip('0')}{f'.{parts[1]}' if len(parts[1]) else ''}"
+        num = f"{sign}{parts[0] if len(parts[0]) else 0}{f'.{parts[1]}' if len(parts[1]) else ''}"
     else:
         raise ValueError("Incorrect number!")
 

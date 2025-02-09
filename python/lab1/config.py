@@ -1,3 +1,6 @@
+# Файл config.py - содержит основные константы по типу цветов, шрифта и т.д.
+
+
 # COLORS
 MAIN_BACKGROUND_COLOR = "#282828"
 FIRST_ACCENT_COLOR = "#363636"
@@ -12,3 +15,5 @@ MAIN_FONT = "Courier"
 
 # CONSTS
 PRECISION = 6
+WIN_SIZE = "300x380"
+WIN_TITLE = "Calculator"

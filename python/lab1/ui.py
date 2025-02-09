@@ -1,4 +1,9 @@
+# Файл ui.py - содержит дизайн главного окна
+# Т.е. дизайн и логика управления разделены
+
+
 import tkinter as tk
+from tkinter import messagebox
 from config import *
 
 
@@ -9,7 +14,7 @@ class AppUI(tk.Tk):
         self.title(win_title)
         self.geometry(win_geometry)
         self.resizable(False, False)
-        self.config(background=MAIN_BACKGROUND_COLOR)
+        self.config(bg=MAIN_BACKGROUND_COLOR)
 
     def initLabel(self, frame: tk.Frame, text: str, **kwargs) -> tk.Label:
         return tk.Label(
@@ -38,8 +43,44 @@ class AppUI(tk.Tk):
             cursor="hand2",
             **kwargs,
         )
+    
+    def delete(self, event=None):
+        pass
+
+    def clear(self, event=None):
+        pass
+
+    def change2dec(self, event=None):
+        pass
+
+    def change2quad(self, event=None):
+        pass
+
+    def showInfo(self):
+        self.infoBox = messagebox.showinfo(
+            "Информация об авторе",
+            "Выполнил: Пэкэлэу Даниил\n"
+            "Группа: ИУ7-26Б\n"
+            "Назначение: Калькулятор перевода из 10 в 4 систему счисления и обратно."
+        )
 
     def setupUI(self):
+        # Меню
+        self.menu = tk.Menu(relief="flat")
+
+        self.convertMenu = tk.Menu(relief="flat", tearoff=0)
+        self.convertMenu.add_command(label="DEC", command=self.change2dec)
+        self.convertMenu.add_command(label="QUAD", command=self.change2quad)
+
+        self.clearMenu = tk.Menu(relief="flat", tearoff=0)
+        self.clearMenu.add_command(label="Один символ", command=self.delete)
+        self.clearMenu.add_command(label="Полностью", command=self.clear)
+        
+        self.menu.add_cascade(label="Перевести", menu=self.convertMenu)
+        self.menu.add_cascade(label="Очистить", menu=self.clearMenu)
+        self.menu.add_command(label="Об авторе", command=self.showInfo)
+        self.config(menu=self.menu)
+
         # Основное поле калькулятора
         self.mainLabel = tk.Label(
             self,
