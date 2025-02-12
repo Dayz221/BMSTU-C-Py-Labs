@@ -34,6 +34,7 @@ class CalculatorWindow(AppUI):
 
         self.bind("<Key>", self.onPressKeyboardButton)
         self.bind("<BackSpace>", self.delete)
+        self.bind("<c>", self.clear)
 
         self.value = tk.StringVar(self, "0")
         self.mainLabel.config(textvariable=self.value)
@@ -65,7 +66,6 @@ class CalculatorWindow(AppUI):
         self.updateCurrentSystem()
         self.value.set(self.quadValLabel.cget("text"))
 
-
     def updateLabels(self):
         if self.isDecSys:
             self.decValLabel.config(text=deleteZeros(f"{float(self.value.get()):.{PRECISION}f}"))
@@ -91,6 +91,8 @@ class CalculatorWindow(AppUI):
             self.buttons[int(key)].invoke()
         elif key == ".":
             self.pointButton.invoke()
+        elif key == "-":
+            self.negateButton.invoke()
 
     def negate(self, event=None):
         val = self.value.get()
@@ -107,7 +109,7 @@ class CalculatorWindow(AppUI):
 
     def delete(self, event=None):
         prevVal = self.value.get()[:-1]
-        if len(prevVal) == 0: prevVal = "0"
+        if len(prevVal) == 0 or (prevVal == "-"): prevVal = "0"
         self.value.set(prevVal)
         self.updateLabels()
 

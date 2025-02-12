@@ -21,7 +21,7 @@ class AppUI(tk.Tk):
             frame,
             text=text,
             background=MAIN_BACKGROUND_COLOR,
-            font=(MAIN_FONT, 14),
+            font=(MAIN_FONT, MID),
             justify="left",
             foreground=TEXT_COLOR,
             disabledforeground=DISABLED_COLOR,
@@ -32,7 +32,7 @@ class AppUI(tk.Tk):
         return tk.Button(
             frame,
             text=text,
-            font=(MAIN_FONT, 14, "bold"),
+            font=(MAIN_FONT, MID, "bold"),
             relief="flat",
             foreground=TEXT_COLOR,
             activebackground=FIRST_ACCENT_COLOR,
@@ -88,7 +88,7 @@ class AppUI(tk.Tk):
             anchor="e",
             background=SECOND_ACCENT_COLOR,
             foreground=TEXT_COLOR,
-            font=(MAIN_FONT, 20, "bold"),
+            font=(MAIN_FONT, BIG, "bold"),
             padx=15,
             pady=15,
         )
@@ -123,9 +123,9 @@ class AppUI(tk.Tk):
         # Клавиатура
         self.keyboardFrame = tk.Frame(self, background=MAIN_BACKGROUND_COLOR)
         for i in range(3): self.keyboardFrame.columnconfigure(i, weight=1)
-        for i in range(4): self.keyboardFrame.grid_rowconfigure(i, weight=1)
+        for i in range(4): self.keyboardFrame.rowconfigure(i, weight=1)
 
-        self.keyboardFrame.pack(padx=10, pady=10, expand=True)
+        self.keyboardFrame.pack(padx=10, pady=10, fill="both")
 
         # Операции +/-, С, <-
         self.negateButton = self.initKeyboardButton(self.keyboardFrame, "+/-")
