@@ -25,8 +25,8 @@ int main()
     bmi = m / pow(h, 2);
 
     // Вывод результата
-    printf("M normal: %f\n", m_normal);
-    printf("BMI: %f\n", bmi);
+    printf("M normal: %.6f\n", m_normal);
+    printf("BMI: %.6f\n", bmi);
 
     return 0;
 }

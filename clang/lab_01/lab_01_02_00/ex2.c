@@ -4,7 +4,7 @@
 int main()
 {
     // Ввод входных данных
-    float a, b; // Стороны трапеции
+    float a, b; // Основания трапеции
     float h;    // Высота трапеции
 
     printf("Enter a: ");
@@ -24,7 +24,7 @@ int main()
     p = a + b + 2 * side;
 
     // Вывод результата
-    printf("Result: p = %f\n", p);
+    printf("Result: %.6f\n", p);
 
     return 0;
 }

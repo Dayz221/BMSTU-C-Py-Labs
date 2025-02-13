@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 
+#define INCORRECT_INPUT 1
+
+void printDividers(int num);
+
 int main()
 {
     // Ввод входных данных
@@ -12,23 +16,30 @@ int main()
     if (scanf("%d", &number) != 1 || number <= 0)
     {
         printf("Incorrect input!");
-        return 1;
+        return INCORRECT_INPUT;
     }
 
     // Необходимые вычисления и вывод результата
-    printf("Dividers:");
-
-    for (int i = 2; i < sqrt(number) + 1; i++)
+    if (number != 1)
     {
-        while (number % i == 0)
+        printf("Dividers: ");
+        printDividers(number);
+    }
+
+    return 0;
+}
+
+void printDividers(int num)
+{
+    for (int i = 2; i < sqrt(num) + 1; i++)
+    {
+        while (num % i == 0)
         {
-            printf(" %d", i);
-            number /= i;
+            printf("%d ", i);
+            num /= i;
         }
     }
 
-    if (number != 1)
-        printf(" %d", number);
-
-    return 0;
+    if (num != 1)
+        printf("%d", num);
 }

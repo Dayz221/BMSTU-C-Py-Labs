@@ -11,12 +11,6 @@ int main()
     printf("Enter count of moneys: ");
     scanf("%d", &money);
 
-    // Проверка ввода
-    if (money < 0) {
-        printf("Incorrect input!");
-        return 1;
-    }
-
     // Необходимые вычисления
     int cnt_of_bottles;
     cnt_of_bottles = (money - EMPTY_PRICE) / (FULL_PRICE - EMPTY_PRICE);
