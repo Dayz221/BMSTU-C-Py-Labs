@@ -109,7 +109,7 @@ class CalculatorWindow(AppUI):
 
     def delete(self, event=None):
         prevVal = self.value.get()[:-1]
-        if len(prevVal) == 0 or (prevVal == "-"): prevVal = "0"
+        if len(prevVal) == 0 or prevVal == "-": prevVal = "0"
         self.value.set(prevVal)
         self.updateLabels()
 

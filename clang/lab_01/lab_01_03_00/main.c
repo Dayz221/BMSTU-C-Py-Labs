@@ -4,25 +4,19 @@
 int main()
 {
     // Ввод входных данных
-    float m; // Масса
-    float t; // Обхват груди
-    float h; // Высота
+    double m; // Масса
+    double t; // Обхват груди
+    double h; // Высота
 
-    printf("Enter ь: ");
-    scanf("%f", &m);
-
-    printf("Enter t: ");
-    scanf("%f", &t);
-
-    printf("Enter h: ");
-    scanf("%f", &h);
+    printf("Enter m, t and h: ");
+    scanf("%lf%lf%lf", &m, &t, &h);
 
     // Необходимые вычисления
-    float m_normal;
-    float bmi;
+    double m_normal;
+    double bmi;
 
     m_normal = h * t / 240;
-    bmi = m / pow(h, 2);
+    bmi = m / (h * h);
 
     // Вывод результата
     printf("M normal: %.6f\n", m_normal);
