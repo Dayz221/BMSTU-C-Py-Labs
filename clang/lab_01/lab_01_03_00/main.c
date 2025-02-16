@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define METERS_IN_CENTIMETER 0.01
+
 int main()
 {
     // Ввод входных данных
@@ -15,7 +17,8 @@ int main()
     double m_normal;
     double bmi;
 
-    m_normal = h * t / 240;
+    m_normal = h * t / 240.;
+    h *= METERS_IN_CENTIMETER; // Перевод из сантиметров в метры
     bmi = m / (h * h);
 
     // Вывод результата
