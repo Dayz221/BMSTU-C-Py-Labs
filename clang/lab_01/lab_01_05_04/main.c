@@ -2,8 +2,9 @@
 #include <math.h>
 
 #define INCORRECT_INPUT 1
+#define ERROR_NEGATIVE_NUMBER 2
 
-void printDividers(int num);
+void print_dividers(int num);
 
 int main()
 {
@@ -13,23 +14,28 @@ int main()
     printf("Enter number: ");
 
     // Проверка на корректность ввода
-    if (scanf("%d", &number) != 1 || number <= 0)
+    if (scanf("%d", &number) != 1)
     {
         printf("Incorrect input!");
         return INCORRECT_INPUT;
     }
+    else if (number <= 0)
+    {
+        printf("Number should be positive!");
+        return ERROR_NEGATIVE_NUMBER;
+    }
 
     // Необходимые вычисления и вывод результата
+    printf("Dividers: ");
     if (number != 1)
-    {
-        printf("Dividers: ");
-        printDividers(number);
-    }
+        print_dividers(number);
+    else
+        printf("none");
 
     return 0;
 }
 
-void printDividers(int num)
+void print_dividers(int num)
 {
     for (int i = 2; i < sqrt(num) + 1; i++)
     {

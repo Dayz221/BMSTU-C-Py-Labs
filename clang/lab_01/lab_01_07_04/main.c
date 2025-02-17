@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 
+#define EPS 1e-6
 #define INCORRECT_INPUT 1
+#define DEVISION_BY_ZERO 2
+#define EPS_OUT_OF_BOUNDS 3
 
 double f(double x);
 double s(double x, double eps);
@@ -17,6 +20,16 @@ int main()
     {
         printf("Incorrect input!");
         return INCORRECT_INPUT;
+    }
+    else if (fabs(x + 1) < EPS)
+    {
+        printf("Division by zero!");
+        return DEVISION_BY_ZERO;
+    }
+    else if (eps <= 0 || eps > 1)
+    {
+        printf("Eps should be in (0,1]");
+        return EPS_OUT_OF_BOUNDS;
     }
 
     // Результаты работы функций
