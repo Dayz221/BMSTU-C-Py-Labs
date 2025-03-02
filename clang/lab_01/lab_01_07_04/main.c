@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#define EPS 1e-6
 #define INCORRECT_INPUT 1
-#define DEVISION_BY_ZERO 2
+#define X_OUT_OF_BOUNDS 2
 #define EPS_OUT_OF_BOUNDS 3
 
 double f(double x);
@@ -21,10 +20,10 @@ int main()
         printf("Incorrect input!");
         return INCORRECT_INPUT;
     }
-    else if (fabs(x + 1) < EPS)
+    else if (fabs(x) >= 1)
     {
-        printf("Division by zero!");
-        return DEVISION_BY_ZERO;
+        printf("x should be in (-1;1)!");
+        return X_OUT_OF_BOUNDS;
     }
     else if (eps <= 0 || eps > 1)
     {
@@ -41,6 +40,8 @@ int main()
     double rel_delta = abs_delta / f_result;
 
     // Вывод результата
+    printf("s(x): %.6f\n", s_result);
+    printf("f(x): %.6f\n", f_result);
     printf("Absolute delta: %.6f\n", abs_delta);
     printf("Relative delta: %.6f\n", rel_delta);
 }
@@ -61,7 +62,7 @@ double s(double x, double eps)
     while (fabs(prev) > eps)
     {
         result += prev;
-        prev *= -(double)(i + 2) * x / i;
+        prev *= -1. * (i + 2) * x / i;
         i++;
     }
 
