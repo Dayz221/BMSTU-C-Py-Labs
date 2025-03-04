@@ -1,40 +1,38 @@
 TOO_MANY_ITERATIONS = -1
 OUT_OF_BOUNDS = -2
+DEVISIO_BY_ZERO = -3
 
-def findDerivative(func, x, eps):
-    dx = 1
-    dy = func(x + dx) - func(x)
-    answ_last = dy/dx
-    iters = 0
-    while True:
-        dx /= 2
-        dy = func(x + dx) - func(x)
-        answ_cur = dy/dx
-        
-        if abs(answ_cur-answ_last) < eps:
-            return iters, answ_cur
-        
-        answ_last = answ_cur
-        
-        iters += 1
+def firstDerivative(func, x, h=1e-6):
+    return (func(x+h)-func(x-h))/(2*h)
+
+# def secondDerivative(func, x, h=1e-6):
+#     return (func(x+h) + func(x-h) - 2*func(x))/(h**2)
 
 def findRoot(func, start, a, b, eps, n_max):
     x = start
-    summ_iters = 0
+    iters = 0
     while True:
-        iters, derivative = findDerivative(func, x, eps)
-        summ_iters += iters + 1
-        if summ_iters > n_max:
+        iters += 1
+        if iters > n_max:
             return TOO_MANY_ITERATIONS, x
 
-        delta = func(x)/derivative
-        x -= delta
+        try:
+            delta = func(x)/firstDerivative(func, x, eps)
+            x -= delta
+        except:
+            return DEVISIO_BY_ZERO, 0
 
         if not(a <= x <= b):
             return OUT_OF_BOUNDS, 0
 
         if abs(delta) < eps:
-            return summ_iters, x
+            return iters, x
+        
+def findVertexPoints(func, start, a, b, eps, n_max):
+    return findRoot(lambda x: firstDerivative(func, x), start, a, b, eps, n_max)
+
+# def findInflectionPoints(func, start, a, b, eps, n_max):
+#     return findRoot(lambda x: secondDerivative(func, x), start, a, b, eps, n_max)
 
 if __name__ == "__main__":
     f = lambda x: x**2

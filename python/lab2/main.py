@@ -10,7 +10,7 @@ from matplotlib.figure import Figure
 import numpy as np
 import math
 
-from functions import findRoot, TOO_MANY_ITERATIONS, OUT_OF_BOUNDS
+from functions import *
 
 matplotlib.use("Qt5Agg")
 
@@ -92,7 +92,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.buildGraph.clicked.connect(self.redrawGraph)
         
         self.redrawGraph()
-        self.matplotlibCanvas.fig.legend(loc="lower center", bbox_to_anchor=(0.5, 0.02), ncol=10)
+        self.matplotlibCanvas.fig.legend(loc="lower center", bbox_to_anchor=(0.5, 0), ncol=3)
 
     def strToFunc(self, string: str):
         math_functions = {name: func for name, func in math.__dict__.items() if callable(func)}
@@ -105,16 +105,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         return lambda x: eval(string.lower(), math_dump, {"x": x})
 
     def redrawGraph(self):
-        try:
-            func = self.strToFunc(self.funcVal.text())
-            func(0)
-        except Exception as ex:
-            print(ex)
-            self.matplotlibCanvas.clear()
-            self.matplotlibCanvas.axes.set_title("Некорректная формула!")
-            self.matplotlibCanvas.draw()
-            return
-        
+        func = self.strToFunc(self.funcVal.text())
+
         start = self.startVal.value()
         end = self.endVal.value()
         step = self.stepVal.value()
@@ -133,6 +125,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         y_coords = []
 
         roots: list[Root] = []
+        vertexes: list[list[int]] = [[], []]
 
         for x in x_coords:
             try:
@@ -141,6 +134,14 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
             except ZeroDivisionError as ex:
                 y_coords.append(np.nan)
+
+            except (SyntaxError, NameError, TypeError, ValueError, OverflowError) as ex:
+                self.table.setRowCount(0)
+                self.matplotlibCanvas.clear()
+                self.matplotlibCanvas.axes.set_title("Некорректная формула")
+                self.matplotlibCanvas.draw()
+                print(ex)
+                return
 
             try:
                 iters, root = findRoot(func, x + step / 2, x, x + step, eps, n_max)
@@ -151,9 +152,18 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 elif iters == TOO_MANY_ITERATIONS:
                     roots.append(Root(root, func(root), [x, x+step], error=1))
                 
-                elif iters == OUT_OF_BOUNDS:
-                    # roots.append(Root(error=2))
+                elif iters == DEVISIO_BY_ZERO:
+                    # roots.append(Root(root, func(root), [x, x+step], error=1))
                     pass
+
+            except Exception as ex:
+                print(ex)
+
+            try:
+                iters, inflectionPoint = findVertexPoints(func, x + step / 2, x, x + step, eps, n_max)
+                if iters > 0: 
+                    vertexes[0].append(inflectionPoint)
+                    vertexes[1].append(func(inflectionPoint))
 
             except Exception as ex:
                 print(ex)
@@ -165,7 +175,10 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
         roots_pos = list(zip(*[[e.x, e.fx] for e in roots if not e.error]))
         if len(roots_pos) != 0:
-            self.matplotlibCanvas.axes.scatter(roots_pos[0], roots_pos[1], marker="o", color="red", label="Корни", zorder=3)
+            self.matplotlibCanvas.axes.scatter(roots_pos[0], roots_pos[1], marker="o", color="red", label="Корни", zorder=4)
+
+        if len(vertexes[0]) != 0:
+            self.matplotlibCanvas.axes.scatter(vertexes[0], vertexes[1], marker="o", color="blue", label="Точки экстремума", zorder=3)
         
         self.matplotlibCanvas.draw()
 
@@ -177,13 +190,6 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             self.table.setItem(i, 3, root.getY())
             self.table.setItem(i, 4, root.getIters())
             self.table.setItem(i, 5, root.getStatus())
-
-        # except Exception as ex:
-        #     print(ex)
-        #     self.matplotlibCanvas.clear()
-        #     self.matplotlibCanvas.draw()
-            
-        #     self.table.setRowCount(0)
 
 
 if __name__ == "__main__":

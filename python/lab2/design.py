@@ -285,7 +285,7 @@ class Ui_MainWindow(object):
         self.stepVal.setMinimum(0.000001000000000)
         self.stepVal.setMaximum(1000000000.000000000000000)
         self.stepVal.setSingleStep(0.000001000000000)
-        self.stepVal.setValue(0.003998000000000)
+        self.stepVal.setValue(0.002000000000000)
 
         self.verticalLayout_8.addWidget(self.stepVal)
 
@@ -390,7 +390,7 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b \u0433\u0440\u0430\u0444\u0438\u043a\u0430", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"  \u0424\u0443\u043d\u043a\u0446\u0438\u044f", None))
         self.funcVal.setInputMask("")
-        self.funcVal.setText(QCoreApplication.translate("MainWindow", u"exp(x)*sin(100*x)", None))
+        self.funcVal.setText(QCoreApplication.translate("MainWindow", u"exp(x)*sin(100*x)+0.5", None))
         self.funcVal.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u0412\u0430\u0448\u0430 \u0444\u0443\u043d\u043a\u0446\u0438\u044f", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"  \u041d\u0430\u0447\u0430\u043b\u043e", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"  \u041a\u043e\u043d\u0435\u0446", None))
