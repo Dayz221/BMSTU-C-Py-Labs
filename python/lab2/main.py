@@ -125,7 +125,6 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         y_coords = []
 
         roots: list[Root] = []
-        vertexes: list[list[int]] = [[], []]
 
         for x in x_coords:
             try:
@@ -152,18 +151,9 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 elif iters == TOO_MANY_ITERATIONS:
                     roots.append(Root(root, func(root), [x, x+step], error=1))
                 
-                elif iters == DEVISIO_BY_ZERO:
-                    # roots.append(Root(root, func(root), [x, x+step], error=1))
+                elif iters == DIVISION_BY_ZERO:
+                    roots.append(Root(segment=[x, x+step], error=2))
                     pass
-
-            except Exception as ex:
-                print(ex)
-
-            try:
-                iters, inflectionPoint = findVertexPoints(func, x + step / 2, x, x + step, eps, n_max)
-                if iters > 0: 
-                    vertexes[0].append(inflectionPoint)
-                    vertexes[1].append(func(inflectionPoint))
 
             except Exception as ex:
                 print(ex)
@@ -176,9 +166,6 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         roots_pos = list(zip(*[[e.x, e.fx] for e in roots if not e.error]))
         if len(roots_pos) != 0:
             self.matplotlibCanvas.axes.scatter(roots_pos[0], roots_pos[1], marker="o", color="red", label="Корни", zorder=4)
-
-        if len(vertexes[0]) != 0:
-            self.matplotlibCanvas.axes.scatter(vertexes[0], vertexes[1], marker="o", color="blue", label="Точки экстремума", zorder=3)
         
         self.matplotlibCanvas.draw()
 

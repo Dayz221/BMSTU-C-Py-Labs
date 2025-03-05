@@ -178,7 +178,7 @@ QPushButton:hover {
                <string/>
               </property>
               <property name="text">
-               <string>exp(x)*sin(100*x)+0.5</string>
+               <string>sin(20*x)</string>
               </property>
               <property name="frame">
                <bool>true</bool>
@@ -257,7 +257,7 @@ QPushButton:hover {
                  <double>1000000000.000000000000000</double>
                 </property>
                 <property name="value">
-                 <double>-0.000100000000000</double>
+                 <double>-1.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -397,7 +397,7 @@ QPushButton:hover {
                  <number>50</number>
                 </property>
                 <property name="value">
-                 <number>1000</number>
+                 <number>200</number>
                 </property>
                </widget>
               </item>
@@ -541,7 +541,7 @@ QPushButton:hover {
                <double>0.000001000000000</double>
               </property>
               <property name="value">
-               <double>0.002000000000000</double>
+               <double>0.000999000000000</double>
               </property>
              </widget>
             </item>
