@@ -24,7 +24,11 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">QLineEdit,
+    <string notr="true">* {
+	color: #111;
+}
+
+QLineEdit,
 QDoubleSpinBox,
 QSpinBox {
 	background-color: #eee;

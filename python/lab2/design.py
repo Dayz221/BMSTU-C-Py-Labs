@@ -34,7 +34,11 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(u"background-color: #222;")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setStyleSheet(u"QLineEdit,\n"
+        self.centralwidget.setStyleSheet(u"* {\n"
+"	color: #111;\n"
+"}\n"
+"\n"
+"QLineEdit,\n"
 "QDoubleSpinBox,\n"
 "QSpinBox {\n"
 "	background-color: #eee;\n"
